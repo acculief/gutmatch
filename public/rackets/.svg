@@ -1,0 +1,7 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'>
+<rect width='320' height='320' fill=''/>
+<rect x='90' y='40' width='140' height='150' rx='70' fill='none' stroke='#fff' stroke-width='8' opacity='0.9'/>
+<rect x='150' y='185' width='20' height='95' fill='#fff' opacity='0.9'/>
+<text x='160' y='250' font-family='sans-serif' font-size='26' font-weight='bold' fill='#fff' text-anchor='middle'></text>
+<text x='160' y='285' font-family='sans-serif' font-size='20' fill='#fff' text-anchor='middle' opacity='0.85'></text>
+</svg>
