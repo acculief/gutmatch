@@ -635,7 +635,7 @@ export const rackets: Record<string, Racket> = {
 
 // GitHub Pages はプロジェクトページ（/gutmatch 配下）配信なので、
 // 生の <img> 用に画像パスへ basePath を前置する（next/link は自動付与のため対象外）。
-const IMG_BASE = process.env.NODE_ENV === "production" ? "/gutmatch" : "";
+const IMG_BASE = "";
 for (const r of Object.values(rackets)) {
   if (!r.image.startsWith(IMG_BASE + "/")) r.image = IMG_BASE + r.image + "?v=2";
 }

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { rackets } from "@/data/rackets";
 
-const BASE = "https://acculief.github.io/gutmatch";
+const BASE = "https://gutmatch.vercel.app";
 
 export const dynamic = "force-static";
 

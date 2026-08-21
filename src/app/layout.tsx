@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gutmatch.vercel.app"),
   title: "ガットマッチ | ラケット別のおすすめガット・人気セットアップ",
   description:
     "「このラケットに合うガットは？」に一発で答える。ラケット別におすすめのガット・テンション・人気セットアップ（ユーザー投票）がわかる。",
