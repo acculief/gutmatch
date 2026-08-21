@@ -16,7 +16,7 @@ export type Racket = {
 export const rackets: Record<string, Racket> = {
   puredrive: {
     slug: "puredrive", brand: "BABOLAT", model: "ピュアドライブ",
-    price: "実勢 ¥24,000前後", badge: "パワー系 No.1人気", image: "/rackets/puredrive.jpg",
+    price: "実勢 ¥24,000前後", badge: "パワー系 No.1人気", image: "/rackets/puredrive.svg",
     verdictTitle: "「よく飛ぶパワー系」なので、飛びと衝撃を抑える方向で張る。",
     verdictBody: "定番は <b>柔らかめのポリを 50〜55 で高め</b> に。球が暴れる・飛びすぎる人ほどテンションを上げる。腕（テニス肘）に不安があるなら <b>マルチ</b> に逃がすのが安全。",
     specs: [
