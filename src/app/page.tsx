@@ -2,7 +2,7 @@ import Link from "next/link";
 import { racketList } from "@/data/rackets";
 
 export default function Home() {
-  const brands = ["すべて", "バボラ", "ウィルソン", "ヨネックス", "ヘッド", "スリクソン"];
+  const brands = ["すべて", "Babolat", "Wilson", "YONEX", "HEAD", "Dunlop", "Prince", "Tecnifibre"];
   return (
     <div className="wrap">
       <header className="top">
