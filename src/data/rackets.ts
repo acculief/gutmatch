@@ -16,7 +16,7 @@ export type Racket = {
 export const rackets: Record<string, Racket> = {
   puredrive: {
     slug: "puredrive", brand: "BABOLAT", model: "ピュアドライブ",
-    price: "実勢 ¥24,000前後", badge: "パワー系 No.1人気", image: "/rackets/puredrive.svg",
+    price: "実勢 ¥24,000前後", badge: "パワー系 No.1人気", image: "/rackets/puredrive.jpg",
     verdictTitle: "「よく飛ぶパワー系」なので、飛びと衝撃を抑える方向で張る。",
     verdictBody: "定番は <b>柔らかめのポリを 50〜55 で高め</b> に。球が暴れる・飛びすぎる人ほどテンションを上げる。腕（テニス肘）に不安があるなら <b>マルチ</b> に逃がすのが安全。",
     specs: [
@@ -46,7 +46,7 @@ export const rackets: Record<string, Racket> = {
 
   pureaero: {
     slug: "pureaero", brand: "BABOLAT", model: "ピュアアエロ",
-    price: "実勢 ¥25,000前後", badge: "スピン系の代名詞", image: "/rackets/pureaero.svg",
+    price: "実勢 ¥25,000前後", badge: "スピン系の代名詞", image: "/rackets/pureaero.jpg",
     verdictTitle: "元々スピンが出るので、回転を活かしつつ“暴れ”を抑える硬めポリが軸。",
     verdictBody: "定番は <b>RPM系のポリを 50〜54</b>。回転量は十分あるので、テンションで飛びとコントロールを締める。硬さがきつければ<b>ポリツアーレブ等の柔ポリ</b>へ。",
     specs: [
@@ -74,7 +74,7 @@ export const rackets: Record<string, Racket> = {
 
   purestrike: {
     slug: "purestrike", brand: "BABOLAT", model: "ピュアストライク",
-    price: "実勢 ¥27,000前後", badge: "コントロール&フィール", image: "/rackets/purestrike.svg",
+    price: "実勢 ¥27,000前後", badge: "コントロール&フィール", image: "/rackets/purestrike.jpg",
     verdictTitle: "飛びは控えめ・打感重視のラケット。食いつくポリ or ハイブリッドで“乗せる”。",
     verdictBody: "定番は <b>やや柔らかいポリを 48〜52</b>。しっかり打ち込む人向けなので、飛ばしたいならマルチ寄せ、押さえたいならポリを高めに。",
     specs: [
@@ -102,7 +102,7 @@ export const rackets: Record<string, Racket> = {
 
   ezone: {
     slug: "ezone", brand: "YONEX", model: "Eゾーン",
-    price: "実勢 ¥26,000前後", badge: "パワー&快適 万能", image: "/rackets/ezone.svg",
+    price: "実勢 ¥26,000前後", badge: "パワー&快適 万能", image: "/rackets/ezone.jpg",
     verdictTitle: "飛び＋打感の柔らかさが売り。ポリでも快適系を選べば失敗しにくい。",
     verdictBody: "定番は <b>ポリツアープロ等を 48〜52</b>。もともとマイルドなので、腕が不安ならマルチ、締めたいならポリを高めに。",
     specs: [
@@ -130,7 +130,7 @@ export const rackets: Record<string, Racket> = {
 
   vcore: {
     slug: "vcore", brand: "YONEX", model: "Vコア",
-    price: "実勢 ¥26,000前後", badge: "回転量トップクラス", image: "/rackets/vcore.svg",
+    price: "実勢 ¥26,000前後", badge: "回転量トップクラス", image: "/rackets/vcore.jpg",
     verdictTitle: "スピン特化フレーム。回転を活かす食いつく系ポリで“沈む球”を作る。",
     verdictBody: "定番は <b>ポリツアースピン/レブを 48〜52</b>。回転量は元々多いので、飛びとコントロールをテンションで管理する。",
     specs: [
@@ -158,7 +158,7 @@ export const rackets: Record<string, Racket> = {
 
   percept: {
     slug: "percept", brand: "YONEX", model: "パーセプト",
-    price: "実勢 ¥28,000前後", badge: "しなり&コントロール", image: "/rackets/percept.svg",
+    price: "実勢 ¥28,000前後", badge: "しなり&コントロール", image: "/rackets/percept.jpg",
     verdictTitle: "しなって掴む上級コントロール系。フィール重視で柔らかめポリ or ハイブリッド。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>。飛びは控えめなので、押さえ込む力がある人向け。快適さ最優先ならマルチ。",
     specs: [
@@ -186,7 +186,7 @@ export const rackets: Record<string, Racket> = {
 
   prostaff: {
     slug: "prostaff", brand: "WILSON", model: "プロスタッフ",
-    price: "実勢 ¥30,000前後", badge: "伝統のコントロール", image: "/rackets/prostaff.svg",
+    price: "実勢 ¥30,000前後", badge: "伝統のコントロール", image: "/rackets/prostaff.jpg",
     verdictTitle: "飛ばないクラシック系。ガット×ポリのハイブリッド or 柔ポリでフィールを出す。",
     verdictBody: "定番は <b>縦ナチュラル/横ポリのハイブリッド</b>、または<b>柔らかポリを 48〜52</b>。自分で振り切れる上級者向け。",
     specs: [
@@ -214,7 +214,7 @@ export const rackets: Record<string, Racket> = {
 
   blade: {
     slug: "blade", brand: "WILSON", model: "ブレード",
-    price: "実勢 ¥29,000前後", badge: "しなり&コントロール人気", image: "/rackets/blade.svg",
+    price: "実勢 ¥29,000前後", badge: "しなり&コントロール人気", image: "/rackets/blade.jpg",
     verdictTitle: "しなって掴むコントロール系。食いつくポリ or ハイブリッドで球持ちを活かす。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>、フィール重視なら<b>ガット×ポリ</b>。飛びは中程度で振れる人向け。",
     specs: [
@@ -242,7 +242,7 @@ export const rackets: Record<string, Racket> = {
 
   clash: {
     slug: "clash", brand: "WILSON", model: "クラッシュ",
-    price: "実勢 ¥28,000前後", badge: "しなり最強・腕に優しい", image: "/rackets/clash.svg",
+    price: "実勢 ¥28,000前後", badge: "しなり最強・腕に優しい", image: "/rackets/clash.jpg",
     verdictTitle: "とにかく柔らかいフレーム。ポリでも快適だが、迷えばマルチで最上の優しさ。",
     verdictBody: "定番は <b>柔らかポリを 48〜52</b>。もともと衝撃が少ないので、肘対策なら<b>マルチ</b>を50前後で。",
     specs: [
@@ -270,7 +270,7 @@ export const rackets: Record<string, Racket> = {
 
   speed: {
     slug: "speed", brand: "HEAD", model: "スピード",
-    price: "実勢 ¥28,000前後", badge: "万能オールラウンド", image: "/rackets/speed.svg",
+    price: "実勢 ¥28,000前後", badge: "万能オールラウンド", image: "/rackets/speed.jpg",
     verdictTitle: "クセの少ない万能機。ポリを中テンションで張れば何でもこなせる。",
     verdictBody: "定番は <b>リンクス系のポリを 48〜52</b>。飛び・スピン・コントロールが平均的なので、好みに合わせて微調整しやすい。",
     specs: [
@@ -298,7 +298,7 @@ export const rackets: Record<string, Racket> = {
 
   radical: {
     slug: "radical", brand: "HEAD", model: "ラジカル",
-    price: "実勢 ¥28,000前後", badge: "コントロール万能", image: "/rackets/radical.svg",
+    price: "実勢 ¥28,000前後", badge: "コントロール万能", image: "/rackets/radical.jpg",
     verdictTitle: "コントロール寄りの万能機。食いつくポリで回転と収まりを両立。",
     verdictBody: "定番は <b>リンクスツアー等のポリを 48〜52</b>。やや飛び控えめなので、飛ばしたい人は柔らかめ・低めに。",
     specs: [
@@ -326,7 +326,7 @@ export const rackets: Record<string, Racket> = {
 
   cx: {
     slug: "cx", brand: "DUNLOP", model: "SRIXON CX",
-    price: "実勢 ¥27,000前後", badge: "シャープなコントロール", image: "/rackets/cx.svg",
+    price: "実勢 ¥27,000前後", badge: "シャープなコントロール", image: "/rackets/cx.jpg",
     verdictTitle: "球持ち良いコントロール系。食いつくポリで“収まる速い球”を作る。",
     verdictBody: "定番は <b>アイコニックオール/エクスプロッシブ等のポリを 48〜52</b>。飛びは中程度、フィール重視ならガット×ポリも。",
     specs: [
@@ -353,7 +353,7 @@ export const rackets: Record<string, Racket> = {
   },
   prestige: {
     slug: "prestige", brand: "HEAD", model: "プレステージ",
-    price: "実勢 ¥30,000前後", badge: "18×20 の伝統コントロール", image: "/rackets/prestige.svg",
+    price: "実勢 ¥30,000前後", badge: "18×20 の伝統コントロール", image: "/rackets/prestige.jpg",
     verdictTitle: "しなって食いつく18×20の名器。飛ばない前提で、柔らかめポリ or ガット寄せ。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>、フィール重視なら<b>ガット×ポリ</b>。密なパターンで球持ちが良いので、自分で振り切れる上級向け。",
     specs: [
@@ -381,7 +381,7 @@ export const rackets: Record<string, Racket> = {
 
   extreme: {
     slug: "extreme", brand: "HEAD", model: "エクストリーム",
-    price: "実勢 ¥27,000前後", badge: "スピン&パワーの中間管理職", image: "/rackets/extreme.svg",
+    price: "実勢 ¥27,000前後", badge: "スピン&パワーの中間管理職", image: "/rackets/extreme.jpg",
     verdictTitle: "スピン寄りのオールラウンド。食いつくポリを中テンションで回転と飛びを両立。",
     verdictBody: "定番は <b>リンクス系のポリを 48〜52</b>。もともと回転が出やすいので、飛びを締めたい人はやや高めに。",
     specs: [
@@ -409,7 +409,7 @@ export const rackets: Record<string, Racket> = {
 
   gravity: {
     slug: "gravity", brand: "HEAD", model: "グラビティ",
-    price: "実勢 ¥28,000前後", badge: "快適&コントロール", image: "/rackets/gravity.svg",
+    price: "実勢 ¥28,000前後", badge: "快適&コントロール", image: "/rackets/gravity.jpg",
     verdictTitle: "しなって掴む快適コントロール系。柔らかめポリで球持ちと優しさを両立。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>。飛びは中程度で打感がマイルドなので、腕が不安ならマルチ寄せも◎。",
     specs: [
@@ -437,7 +437,7 @@ export const rackets: Record<string, Racket> = {
 
   ultra: {
     slug: "ultra", brand: "WILSON", model: "ウルトラ",
-    price: "実勢 ¥27,000前後", badge: "パワー&快適 万人向け", image: "/rackets/ultra.svg",
+    price: "実勢 ¥27,000前後", badge: "パワー&快適 万人向け", image: "/rackets/ultra.jpg",
     verdictTitle: "飛びと快適さの万人向け。柔らかめポリ or マルチで楽に飛ばす方向。",
     verdictBody: "定番は <b>柔らかポリを 48〜52</b>。飛ぶラケットなので、締めたいならテンション高め、優しさ重視ならマルチ。",
     specs: [
@@ -465,7 +465,7 @@ export const rackets: Record<string, Racket> = {
 
   shift: {
     slug: "shift", brand: "WILSON", model: "シフト",
-    price: "実勢 ¥29,000前後", badge: "しなり系スピン・腕に優しい", image: "/rackets/shift.svg",
+    price: "実勢 ¥29,000前後", badge: "しなり系スピン・腕に優しい", image: "/rackets/shift.jpg",
     verdictTitle: "縦にしなって食いつく新世代。柔らかポリでスピンと快適さを両立。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>。しなりで球持ちが良く腕にも優しいので、硬いポリを高テンションにはしない。",
     specs: [
@@ -493,7 +493,7 @@ export const rackets: Record<string, Racket> = {
 
   sx: {
     slug: "sx", brand: "DUNLOP", model: "SX",
-    price: "実勢 ¥26,000前後", badge: "回転特化", image: "/rackets/sx.svg",
+    price: "実勢 ¥26,000前後", badge: "回転特化", image: "/rackets/sx.jpg",
     verdictTitle: "スピン特化フレーム。食いつくスピン系ポリで回転量を最大化する。",
     verdictBody: "定番は <b>エクスプロッシブスピン等を 48〜52</b>。回転は元々出るので、飛びとコントロールをテンションで締める。",
     specs: [
@@ -521,7 +521,7 @@ export const rackets: Record<string, Racket> = {
 
   fx: {
     slug: "fx", brand: "DUNLOP", model: "FX",
-    price: "実勢 ¥26,000前後", badge: "パワー&快適", image: "/rackets/fx.svg",
+    price: "実勢 ¥26,000前後", badge: "パワー&快適", image: "/rackets/fx.jpg",
     verdictTitle: "飛びと快適さの中量級。柔らかポリ or マルチで楽に飛ばす方向。",
     verdictBody: "定番は <b>柔らかポリを 48〜52</b>。飛ぶ設計なので、締めたいならテンション高め、優しさ重視ならマルチ。",
     specs: [
@@ -549,7 +549,7 @@ export const rackets: Record<string, Racket> = {
 
   phantom: {
     slug: "phantom", brand: "PRINCE", model: "ファントム",
-    price: "実勢 ¥28,000前後", badge: "しなり&フィールの通好み", image: "/rackets/phantom.svg",
+    price: "実勢 ¥28,000前後", badge: "しなり&フィールの通好み", image: "/rackets/phantom.jpg",
     verdictTitle: "しなって掴む通好みのコントロール系。柔らかポリ or ガット寄せでフィール重視。",
     verdictBody: "定番は <b>柔らかいポリを 48〜52</b>。飛びは控えめで球持ちが良いので、自分で振れる人向け。快適重視ならマルチ。",
     specs: [
@@ -577,7 +577,7 @@ export const rackets: Record<string, Racket> = {
 
   tfight: {
     slug: "tfight", brand: "TECNIFIBRE", model: "Tファイト",
-    price: "実勢 ¥28,000前後", badge: "シャープなコントロール", image: "/rackets/tfight.svg",
+    price: "実勢 ¥28,000前後", badge: "シャープなコントロール", image: "/rackets/tfight.jpg",
     verdictTitle: "球離れの良いコントロール系。食いつくポリで速い球を収める。",
     verdictBody: "定番は <b>レーザーコード等のポリを 48〜52</b>。飛びは中程度、フィール重視ならガット×ポリも合う。",
     specs: [
@@ -605,7 +605,7 @@ export const rackets: Record<string, Racket> = {
 
   boom: {
     slug: "boom", brand: "HEAD", model: "ブーム",
-    price: "実勢 ¥26,000前後", badge: "パワー&スピンの中量級", image: "/rackets/boom.svg",
+    price: "実勢 ¥26,000前後", badge: "パワー&スピンの中量級", image: "/rackets/boom.jpg",
     verdictTitle: "飛びと回転の中量級オールラウンド。食いつくポリを中テンションで。",
     verdictBody: "定番は <b>リンクス系のポリを 48〜52</b>。飛びが出やすいので、締めたい人はやや高め、快適重視ならマルチ。",
     specs: [
