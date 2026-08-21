@@ -3,6 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://gutmatch.vercel.app"),
+  verification: { google: "0uJTSoLifNf9F30GBAdAstHG5n6Ci6kGC29csJZbdRM" },
   title: "ガットマッチ | ラケット別のおすすめガット・人気セットアップ",
   description:
     "「このラケットに合うガットは？」に一発で答える。ラケット別におすすめのガット・テンション・人気セットアップ（ユーザー投票）がわかる。",
