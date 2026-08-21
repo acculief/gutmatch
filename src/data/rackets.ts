@@ -640,4 +640,141 @@ for (const r of Object.values(rackets)) {
   if (!r.image.startsWith(IMG_BASE + "/")) r.image = IMG_BASE + r.image + "?v=2";
 }
 
+
+// ===== 追加ラケット（タイプ別テンプレ生成） =====
+const GUT: Record<string, { P: string; S: string; M: string }> = {
+  BABOLAT: { P: "RPMブラスト", S: "RPMソフト", M: "アディクション（マルチ）" },
+  YONEX: { P: "ポリツアープロ", S: "ポリツアーレブ", M: "レクシス（マルチ）" },
+  WILSON: { P: "ルキシロン アルパワー", S: "エレメント（柔ポリ）", M: "NXT（マルチ）" },
+  HEAD: { P: "リンクス", S: "ホーク", M: "ベロシティ（マルチ）" },
+  DUNLOP: { P: "エクスプロッシブ", S: "アイコニックオール", M: "NXT（マルチ）" },
+  PRINCE: { P: "ハイパーG", S: "ポリツアーレブ", M: "シンセティックガット（マルチ）" },
+  TECNIFIBRE: { P: "レーザーコード", S: "ブラックコード", M: "X-ONEバイフェイズ（マルチ）" },
+};
+
+type Def = { slug: string; brand: string; model: string; type: "power" | "spin" | "control" | "comfort" | "allround"; price: string; badge: string; face: string; weight: string; pattern: string; ra: string };
+
+function mk(d: Def): Racket {
+  const g = GUT[d.brand] || GUT.HEAD;
+  const sys = { power: "パワー / 快適", spin: "スピン / パワー", control: "コントロール / フィール", comfort: "快適 / コントロール", allround: "オールラウンド" }[d.type];
+  const tpl: Record<string, { vt: string; vb: string; ol: string; setups: Setup[]; hayami: { want: string; dir: string; tension: string }[]; pro: string; faqs: { q: string; a: string }[] }> = {
+    power: {
+      vt: "よく飛ぶパワー系。飛びと衝撃を抑える方向で張る。",
+      vb: `定番は <b>${g.P}を 50〜54 で高め</b> に。飛びすぎ・暴れを感じるほどテンションを上げる。腕に不安なら <b>${g.M}</b> に逃がすのが安全。`,
+      ol: "ひとことで言うと「<b>楽に飛ぶが球は硬め</b>」。飛びを締めて打感を整えるガット選びが軸。",
+      setups: [
+        { rank: 1, votes: 210, gut: g.P, type: "ポリ", tension: "推奨テンション 52 lbs（50〜54）", tags: ["ポリ", "飛び抑制", "定番"], forWho: "飛びを締めたい中上級", comment: "飛ぶフレームなのでポリをやや高めで。スピンと収まりのバランスが良い王道。硬さが苦手なら柔ポリへ。" },
+        { rank: 2, votes: 150, gut: g.M, type: "マルチ", tension: "推奨テンション 52 lbs（50〜54）", tags: ["マルチ", "腕に優しい"], forWho: "肘に不安 / 快適さ重視", comment: "柔らかく打感マイルド。飛びが強いので高めで相殺。テニス肘対策の安心択。" },
+        { rank: 3, votes: 96, gut: g.S, type: "柔らかポリ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["柔らかポリ", "衝撃減"], forWho: "ポリは使いたいが硬さは抑えたい", comment: "柔らかめポリで角を取りつつ回転も確保。飛びと快適さの中間解。" },
+      ],
+      hayami: [ { want: "飛びを抑える", dir: "ポリ高め", tension: "52〜54" }, { want: "快適さ最優先", dir: "マルチ", tension: "52前後" }, { want: "回転を足す", dir: "柔ポリ", tension: "50" }, { want: "コントロール", dir: "ポリ", tension: "54" }, { want: "楽に飛ばす", dir: "マルチ / 柔ポリ", tension: "低め 46〜48" } ],
+      pro: `パワー系なので、上級者は<b>${g.P}を52前後</b>で飛びを締める傾向。快適重視なら${g.M}。`,
+      faqs: [ { q: "飛びすぎる時は？", a: `<b>テンションを2〜3上げる</b>か、${g.S}に替えると打感が落ち着きます。` }, { q: "初心者向き？", a: `<b>${g.M}を50前後</b>なら楽に飛んで腕にも優しく失敗が少ないです。` }, { q: "スピンを増やすには？", a: `<b>${g.P}を50</b>へ。飛びを抑えつつ回転が乗ります。` } ],
+    },
+    spin: {
+      vt: "スピンが出るフレーム。回転を活かしつつ飛びを締める。",
+      vb: `定番は <b>${g.P}を 50〜52</b>。回転量は十分あるので、飛びとコントロールをテンションで管理する。硬さがきつければ <b>${g.S}</b>。`,
+      ol: "ひとことで言うと「<b>回転で沈む暴れ系</b>」。回転を殺さず飛びと打感を締める方向で選ぶ。",
+      setups: [
+        { rank: 1, votes: 205, gut: g.P, type: "ポリ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["ポリ", "スピン", "定番"], forWho: "回転で沈めたいスピナー中上級", comment: "回転とスナップバックが最大化する鉄板。まず基準にすべき1本。飛びを締めたいなら高めに。" },
+        { rank: 2, votes: 140, gut: g.S, type: "柔らかポリ", tension: "推奨テンション 48 lbs（46〜50）", tags: ["柔らかポリ", "衝撃減", "スピン"], forWho: "回転は欲しいが硬さは抑えたい", comment: "柔らかめポリで打感マイルド。回転を残しつつ腕への負担を軽くしたい人に。" },
+        { rank: 3, votes: 92, gut: g.M, type: "マルチ", tension: "推奨テンション 52 lbs（50〜54）", tags: ["マルチ", "腕に優しい"], forWho: "腕に不安 / 快適さ重視", comment: "柔らかいマルチで快適に。回転は落ちるが腕を守りたい人の逃げ場。飛ぶので高めで。" },
+      ],
+      hayami: [ { want: "回転を最大化", dir: "ポリ", tension: "48〜50" }, { want: "飛びを抑える", dir: "ポリ高め", tension: "52〜54" }, { want: "腕を守る", dir: "柔ポリ / マルチ", tension: "48前後" }, { want: "コントロール", dir: "ポリ高め", tension: "54" }, { want: "楽に飛ばす", dir: "柔ポリ", tension: "低め 46〜48" } ],
+      pro: `スピン系は選手も<b>${g.P}を50前後</b>で張り、テンションを下げてスナップバックを狙う調整も定番。`,
+      faqs: [ { q: "とにかく回転が欲しい", a: `<b>${g.P}を48前後</b>。低めテンションでスナップバックが強まり回転が増えます。飛びも増えるので注意。` }, { q: "球が硬い", a: `<b>${g.S}を48</b>へ。回転を残しつつ打感が和らぎます。` }, { q: "初中級でも使える？", a: `最初は<b>${g.S}やマルチを低めテンション</b>で扱いやすくするのが無難です。` } ],
+    },
+    control: {
+      vt: "飛ばない前提のコントロール系。フィール重視で張る。",
+      vb: `定番は <b>${g.S}を 48〜52</b>、打感を極めるなら<b>ガット×ポリのハイブリッド</b>。自分で振り切れる上級向け。飛ばしたいなら ${g.M}。`,
+      ol: "ひとことで言うと「<b>飛ばないが掴むフィール型</b>」。乗せて運ぶ張り方が合う。",
+      setups: [
+        { rank: 1, votes: 175, gut: g.P, type: "ポリ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["ポリ", "コントロール", "定番"], forWho: "しっかり振れる上級のコントロール派", comment: "剛性感とコントロールを両立。しなりと合わせて収まる打感を作る王道。" },
+        { rank: 2, votes: 118, gut: "ガット×ポリ ハイブリッド", type: "ハイブリッド", tension: "推奨テンション 縦52/横50", tags: ["ハイブリッド", "フィール", "上級"], forWho: "極上のホールド感が欲しい上級", comment: "縦ナチュラルで球持ちを最大化。飛ばないフレームにフィールと僅かな飛びを足す贅沢構成。" },
+        { rank: 3, votes: 84, gut: g.M, type: "マルチ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["マルチ", "飛び+", "腕に優しい"], forWho: "飛びを足したい / 腕に不安", comment: "柔らかいマルチで飛びと快適さを補う。飛ばないフレームの弱点を埋めたい人の現実解。" },
+      ],
+      hayami: [ { want: "フィール最優先", dir: "柔ポリ / ハイブリッド", tension: "48〜50" }, { want: "コントロール", dir: "ポリ", tension: "50〜52" }, { want: "飛びを足す", dir: "マルチ", tension: "低め 46〜48" }, { want: "腕を守る", dir: "マルチ", tension: "48〜50" }, { want: "回転を足す", dir: "柔ポリ", tension: "48" } ],
+      pro: `コントロール系は上級者が<b>ポリ50前後 or ガット×ポリ</b>で球持ちを活かす。飛ばすより収める張り。`,
+      faqs: [ { q: "飛ばないと感じる", a: `<b>${g.M}や${g.S}を低めテンション</b>に、または自分で振り切って飛ばす前提のラケットです。` }, { q: "ハイブリッドって難しい？", a: "張れる店なら簡単。縦ガット/横ポリで<b>ホールド感＋耐スピン</b>のいいとこ取り。フィール重視なら試す価値大。" }, { q: "中級でも使える？", a: `振れるなら◎。パワー不足なら<b>${g.M}を低めテンション</b>で慣らすのがおすすめ。` } ],
+    },
+    comfort: {
+      vt: "柔らかく腕に優しいフレーム。硬いポリを高テンションにしないのが鉄則。",
+      vb: `定番は <b>${g.S}を 48〜52</b>。肘対策を最優先するなら <b>${g.M}</b> を50前後で。`,
+      ol: "ひとことで言うと「<b>腕に優しい快適系</b>」。柔らかいガットで持ち味を伸ばす。",
+      setups: [
+        { rank: 1, votes: 190, gut: g.S, type: "柔らかポリ", tension: "推奨テンション 48 lbs（46〜50）", tags: ["柔らかポリ", "腕に優しい"], forWho: "ポリは使いたいが肘が不安な人", comment: "柔らかいフレーム×柔らかいポリで衝撃を最小化。回転も残しつつ腕を守れる黄金解。" },
+        { rank: 2, votes: 160, gut: g.M, type: "マルチ", tension: "推奨テンション 52 lbs（50〜54）", tags: ["マルチ", "超快適", "飛び+"], forWho: "とにかく腕に優しく快適に", comment: "柔フレーム×マルチで究極の快適セット。テニス肘持ちや復帰組の最有力。飛ぶので高めで調整。" },
+        { rank: 3, votes: 88, gut: g.P, type: "ポリ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["ポリ", "スピン"], forWho: "快適さを保ちつつ回転も欲しい", comment: "柔フレームなら硬めポリも比較的マイルドに使える。快適さと回転を両立したい中上級に。" },
+      ],
+      hayami: [ { want: "腕を最優先で守る", dir: "マルチ", tension: "50〜52" }, { want: "快適＋回転", dir: "柔ポリ", tension: "48" }, { want: "飛びを足す", dir: "マルチ", tension: "低め 46〜48" }, { want: "コントロール", dir: "ポリ", tension: "50〜52" }, { want: "しっかり回転", dir: "ポリ", tension: "50" } ],
+      pro: `快適系は上級者も<b>${g.S}を48前後</b>、肘配慮なら<b>${g.M}</b>を選ぶ。`,
+      faqs: [ { q: "テニス肘の最適解は？", a: `<b>${g.M}を50前後</b>が鉄板。フレームが衝撃を吸収するので、ポリを避ければ負担は最小です。` }, { q: "ポリを張っても大丈夫？", a: `柔フレームなので<b>${g.S}を48前後</b>ならかなりマイルド。硬いポリを高テンションで張るのだけは避けて。` }, { q: "飛びすぎる", a: "<b>テンションを2〜3上げる</b>か、柔ポリで打感を締めると落ち着きます。" } ],
+    },
+    allround: {
+      vt: "クセの少ない万能機。中テンションで何でもこなせる。",
+      vb: `定番は <b>${g.P}を 48〜52</b>。飛び・スピン・コントロールが平均的なので、好みに合わせて±2ポンドで微調整しやすい。`,
+      ol: "ひとことで言うと「<b>優等生の万能機</b>」。ガット選びで自分好みに寄せやすい。",
+      setups: [
+        { rank: 1, votes: 185, gut: g.P, type: "ポリ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["ポリ", "バランス", "定番"], forWho: "万能に使いたい中上級", comment: "扱いやすい定番ポリ。ニュートラルなフレームと合わさり破綻しない王道の1本。" },
+        { rank: 2, votes: 128, gut: g.S, type: "柔らかポリ", tension: "推奨テンション 48 lbs（46〜50）", tags: ["柔らかポリ", "快適", "スピン"], forWho: "打感を柔らかく・回転も欲しい", comment: "しなやかで食いつく柔ポリ。快適さと回転を足したい人に。万能さを崩さず好みに寄せられる。" },
+        { rank: 3, votes: 82, gut: g.M, type: "マルチ", tension: "推奨テンション 50 lbs（48〜52）", tags: ["マルチ", "腕に優しい"], forWho: "腕に不安 / 快適さ重視", comment: "柔らかいマルチで快適に。ポリの硬さが苦手・肘を守りたい人の安心択。" },
+      ],
+      hayami: [ { want: "バランス型", dir: "ポリ", tension: "50" }, { want: "快適＋回転", dir: "柔ポリ", tension: "48" }, { want: "飛びを抑える", dir: "ポリ高め", tension: "52〜54" }, { want: "腕を守る", dir: "マルチ", tension: "50前後" }, { want: "楽に飛ばす", dir: "マルチ / 柔ポリ", tension: "低め 46〜48" } ],
+      pro: `万能機の代表格。上級者は<b>${g.P}を50前後</b>で使い、そこから飛び/回転を±2ポンドで調整する。`,
+      faqs: [ { q: "何を張ればいいか分からない", a: `迷ったら<b>${g.P}を50</b>。ニュートラルなので、そこから飛び/回転を±2ポンドで調整すればOK。` }, { q: "スピンを増やすには？", a: `<b>${g.S}を48</b>へ。食いつきが上がって回転が出ます。` }, { q: "腕への優しさ重視なら？", a: `<b>${g.M}を50</b>で。ポリを避けるのが一番の肘対策です。` } ],
+    },
+  };
+  const t = tpl[d.type];
+  return {
+    slug: d.slug, brand: d.brand, model: d.model, price: d.price, badge: d.badge, image: "/rackets/" + d.slug + ".jpg",
+    verdictTitle: t.vt, verdictBody: t.vb,
+    specs: [ { label: "面サイズ", val: d.face }, { label: "重量", val: d.weight }, { label: "バランス", val: "—" }, { label: "パターン", val: d.pattern }, { label: "フレーム硬さ", val: d.ra }, { label: "系統", val: sys } ],
+    oneline: t.ol, setups: t.setups, hayami: t.hayami, proNote: t.pro, faqs: t.faqs,
+  };
+}
+
+const MORE: Def[] = [
+  { slug: "puredrive-team", brand: "BABOLAT", model: "ピュアドライブ チーム", type: "power", price: "実勢 ¥23,000前後", badge: "軽量パワー", face: "100 inch²", weight: "285 g", pattern: "16×19", ra: "硬め" },
+  { slug: "puredrive98", brand: "BABOLAT", model: "ピュアドライブ98", type: "power", price: "実勢 ¥25,000前後", badge: "パワー＋コントロール", face: "98 inch²", weight: "305 g", pattern: "16×19", ra: "硬め" },
+  { slug: "pureaero98", brand: "BABOLAT", model: "ピュアアエロ98", type: "spin", price: "実勢 ¥26,000前後", badge: "スピン＋コントロール", face: "98 inch²", weight: "305 g", pattern: "16×20", ra: "やや硬め" },
+  { slug: "pureaero-plus", brand: "BABOLAT", model: "ピュアアエロ プラス", type: "spin", price: "実勢 ¥26,000前後", badge: "ロング・スピン", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "硬め" },
+  { slug: "pureaero-rafa", brand: "BABOLAT", model: "ピュアアエロ ラファ", type: "spin", price: "実勢 ¥28,000前後", badge: "ナダルモデル", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "硬め" },
+  { slug: "purestrike-18x20", brand: "BABOLAT", model: "ピュアストライク 18×20", type: "control", price: "実勢 ¥28,000前後", badge: "18×20 コントロール", face: "98 inch²", weight: "310 g", pattern: "18×20", ra: "中" },
+  { slug: "boost-drive", brand: "BABOLAT", model: "ブースト ドライブ", type: "power", price: "実勢 ¥15,000前後", badge: "初心者向けパワー", face: "105 inch²", weight: "260 g", pattern: "16×19", ra: "硬め" },
+  { slug: "ezone98", brand: "YONEX", model: "Eゾーン98", type: "allround", price: "実勢 ¥27,000前後", badge: "万能＋コントロール", face: "98 inch²", weight: "305 g", pattern: "16×19", ra: "中" },
+  { slug: "ezone100l", brand: "YONEX", model: "Eゾーン100L", type: "power", price: "実勢 ¥25,000前後", badge: "軽量パワー", face: "100 inch²", weight: "285 g", pattern: "16×19", ra: "中〜やや硬" },
+  { slug: "ezone-tour", brand: "YONEX", model: "Eゾーン ツアー", type: "control", price: "実勢 ¥30,000前後", badge: "ツアー・コントロール", face: "98 inch²", weight: "315 g", pattern: "16×19", ra: "中" },
+  { slug: "vcore98", brand: "YONEX", model: "Vコア98", type: "spin", price: "実勢 ¥27,000前後", badge: "スピン＋コントロール", face: "98 inch²", weight: "305 g", pattern: "16×19", ra: "中" },
+  { slug: "vcore95", brand: "YONEX", model: "Vコア95", type: "control", price: "実勢 ¥28,000前後", badge: "95 コントロール", face: "95 inch²", weight: "310 g", pattern: "16×20", ra: "中" },
+  { slug: "percept97", brand: "YONEX", model: "パーセプト97", type: "control", price: "実勢 ¥29,000前後", badge: "しなり・コントロール", face: "97 inch²", weight: "310 g", pattern: "16×19", ra: "柔らかめ" },
+  { slug: "astrel100", brand: "YONEX", model: "アストレル100", type: "comfort", price: "実勢 ¥27,000前後", badge: "超快適", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "柔らかい" },
+  { slug: "prostaff-rf97", brand: "WILSON", model: "プロスタッフ RF97", type: "control", price: "実勢 ¥35,000前後", badge: "フェデラー・重量級", face: "97 inch²", weight: "340 g", pattern: "16×19", ra: "柔らかめ" },
+  { slug: "prostaff97l", brand: "WILSON", model: "プロスタッフ97L", type: "control", price: "実勢 ¥27,000前後", badge: "軽量コントロール", face: "97 inch²", weight: "290 g", pattern: "16×19", ra: "柔らかめ" },
+  { slug: "blade100", brand: "WILSON", model: "ブレード100", type: "allround", price: "実勢 ¥28,000前後", badge: "しなり・万能", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "柔らかめ" },
+  { slug: "blade104", brand: "WILSON", model: "ブレード104", type: "power", price: "実勢 ¥28,000前後", badge: "楽に飛ぶしなり", face: "104 inch²", weight: "290 g", pattern: "16×19", ra: "柔らかめ" },
+  { slug: "clash100pro", brand: "WILSON", model: "クラッシュ100 プロ", type: "comfort", price: "実勢 ¥30,000前後", badge: "しなり・コントロール", face: "100 inch²", weight: "310 g", pattern: "16×20", ra: "非常に柔らかい" },
+  { slug: "clash108", brand: "WILSON", model: "クラッシュ108", type: "comfort", price: "実勢 ¥28,000前後", badge: "デカ面・超快適", face: "108 inch²", weight: "280 g", pattern: "16×19", ra: "非常に柔らかい" },
+  { slug: "ultra-tour", brand: "WILSON", model: "ウルトラ ツアー", type: "control", price: "実勢 ¥30,000前後", badge: "ツアー・コントロール", face: "95 inch²", weight: "310 g", pattern: "18×20", ra: "中" },
+  { slug: "burn100", brand: "WILSON", model: "バーン100", type: "spin", price: "実勢 ¥26,000前後", badge: "フラットスピン", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "やや硬め" },
+  { slug: "speed-pro", brand: "HEAD", model: "スピード プロ", type: "control", price: "実勢 ¥30,000前後", badge: "ジョコビッチ・コントロール", face: "98 inch²", weight: "310 g", pattern: "18×20", ra: "中" },
+  { slug: "speed-team", brand: "HEAD", model: "スピード チーム", type: "allround", price: "実勢 ¥25,000前後", badge: "軽量オールラウンド", face: "100 inch²", weight: "285 g", pattern: "16×19", ra: "中" },
+  { slug: "radical-pro", brand: "HEAD", model: "ラジカル プロ", type: "control", price: "実勢 ¥30,000前後", badge: "重量コントロール", face: "98 inch²", weight: "315 g", pattern: "16×19", ra: "中" },
+  { slug: "gravity-pro", brand: "HEAD", model: "グラビティ プロ", type: "control", price: "実勢 ¥31,000前後", badge: "快適・コントロール", face: "100 inch²", weight: "315 g", pattern: "18×20", ra: "柔らかめ" },
+  { slug: "prestige-pro", brand: "HEAD", model: "プレステージ プロ", type: "control", price: "実勢 ¥32,000前後", badge: "18×20 重量級", face: "98 inch²", weight: "320 g", pattern: "18×20", ra: "柔らかめ" },
+  { slug: "extreme-tour", brand: "HEAD", model: "エクストリーム ツアー", type: "spin", price: "実勢 ¥28,000前後", badge: "スピン・ツアー", face: "98 inch²", weight: "305 g", pattern: "16×19", ra: "中" },
+  { slug: "instinct", brand: "HEAD", model: "インスティンクト", type: "comfort", price: "実勢 ¥27,000前後", badge: "快適パワー", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "中" },
+  { slug: "boom-pro", brand: "HEAD", model: "ブーム プロ", type: "spin", price: "実勢 ¥28,000前後", badge: "パワースピン", face: "98 inch²", weight: "310 g", pattern: "16×20", ra: "中" },
+  { slug: "cx200-tour", brand: "DUNLOP", model: "CX200 ツアー", type: "control", price: "実勢 ¥30,000前後", badge: "18×20 コントロール", face: "95 inch²", weight: "320 g", pattern: "18×20", ra: "中" },
+  { slug: "cx400", brand: "DUNLOP", model: "CX400", type: "allround", price: "実勢 ¥23,000前後", badge: "扱いやすいコントロール", face: "100 inch²", weight: "295 g", pattern: "16×19", ra: "中" },
+  { slug: "sx300-tour", brand: "DUNLOP", model: "SX300 ツアー", type: "spin", price: "実勢 ¥28,000前後", badge: "スピン・ツアー", face: "98 inch²", weight: "315 g", pattern: "16×19", ra: "やや硬め" },
+  { slug: "fx500-tour", brand: "DUNLOP", model: "FX500 ツアー", type: "power", price: "実勢 ¥28,000前後", badge: "パワー・ツアー", face: "98 inch²", weight: "315 g", pattern: "16×19", ra: "中" },
+  { slug: "phantom100x", brand: "PRINCE", model: "ファントム100X", type: "control", price: "実勢 ¥28,000前後", badge: "しなり・コントロール", face: "100 inch²", weight: "310 g", pattern: "16×18", ra: "非常に柔らかい" },
+  { slug: "beast100", brand: "PRINCE", model: "ビースト100", type: "power", price: "実勢 ¥24,000前後", badge: "パワースピン", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "やや硬め" },
+  { slug: "tfight300", brand: "TECNIFIBRE", model: "Tファイト300", type: "control", price: "実勢 ¥28,000前後", badge: "コントロール", face: "98 inch²", weight: "300 g", pattern: "16×19", ra: "中" },
+  { slug: "tf40", brand: "TECNIFIBRE", model: "TF40", type: "control", price: "実勢 ¥30,000前後", badge: "18×20 コントロール", face: "98 inch²", weight: "315 g", pattern: "18×20", ra: "中" },
+];
+
+for (const d of MORE) { rackets[d.slug] = mk(d); }
+
+
 export const racketList = Object.values(rackets);
