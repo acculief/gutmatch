@@ -637,7 +637,7 @@ export const rackets: Record<string, Racket> = {
 // 生の <img> 用に画像パスへ basePath を前置する（next/link は自動付与のため対象外）。
 const IMG_BASE = process.env.NODE_ENV === "production" ? "/gutmatch" : "";
 for (const r of Object.values(rackets)) {
-  if (!r.image.startsWith(IMG_BASE + "/")) r.image = IMG_BASE + r.image;
+  if (!r.image.startsWith(IMG_BASE + "/")) r.image = IMG_BASE + r.image + "?v=2";
 }
 
 export const racketList = Object.values(rackets);
