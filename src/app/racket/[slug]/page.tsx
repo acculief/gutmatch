@@ -1,21 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { rackets } from "@/data/rackets";
-import VoteButton from "@/components/VoteButton";
+import SetupList from "@/components/SetupList";
+import VoteForm from "@/components/VoteForm";
 
 export function generateStaticParams() {
   return Object.keys(rackets).map((slug) => ({ slug }));
-}
-
-// 各セットアップのガット名を楽天/Amazonの検索に連動させる。
-// 「A / B」表記は先頭を採用、ハイブリッド等の総称はそのまま検索語にする。
-function buyUrls(gut: string) {
-  const base = gut.split("/")[0].trim();
-  const q = encodeURIComponent(base + " テニス ガット");
-  return {
-    rakuten: `https://search.rakuten.co.jp/search/mall/${q}/`,
-    amazon: `https://www.amazon.co.jp/s?k=${q}`,
-  };
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -51,7 +41,7 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
         </div>
 
         <h1>{r.model}に合うガットは？<br />おすすめセットアップ・人気の張り方</h1>
-        <div className="meta">最終更新 2026-08-13 ・ ユーザー投票 1,284件 反映</div>
+        <div className="meta">みんなの投票でランキング更新中 ・ あなたの1票も即反映</div>
 
         <div className="verdict">
           <span className="tag">まず結論</span>
@@ -67,22 +57,8 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
           <div className="oneline" dangerouslySetInnerHTML={{ __html: r.oneline }} />
         </div>
 
-        <h3 className="sec">人気セットアップ Top{r.setups.length} <span className="sub-note">（ユーザー投票順）</span></h3>
-        {r.setups.map((s) => {
-          const b = buyUrls(s.gut);
-          return (
-          <div className="card" key={s.rank}>
-            <span className="rank">{s.rank}位</span>
-            <div className="votes"><b>{s.votes}</b>票</div>
-            <div className="gname">{s.gut}</div>
-            <div className="tension">{s.tension}</div>
-            <div className="tags">{s.tags.map((t) => <span key={t}>{t}</span>)}</div>
-            <div className="forwho">こんな人に：{s.forWho}</div>
-            <div className="cmt">{s.comment}</div>
-            <div className="buys"><a className="rk-b" href={b.rakuten} target="_blank" rel="nofollow sponsored noopener">楽天で見る</a><a className="az" href={b.amazon} target="_blank" rel="nofollow sponsored noopener">Amazonで見る</a></div>
-          </div>
-          );
-        })}
+        <h3 className="sec">人気セットアップ Top{r.setups.length} <span className="sub-note">（ユーザー投票順・リアルタイム反映）</span></h3>
+        <SetupList slug={slug} setups={r.setups} />
 
         <h3 className="sec">目的別・張り方の早見表</h3>
         <table>
@@ -101,7 +77,7 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
         <div className="vote">
           <h4>🎾 {r.model}、何をどのテンションで張ってる？</h4>
           <p>投票が集まるほど「人気セットアップ」が正確になります</p>
-          <VoteButton model={r.model} />
+          <VoteForm slug={slug} model={r.model} guts={r.setups.map((s) => s.gut)} />
         </div>
 
         <h3 className="sec">よくある質問</h3>

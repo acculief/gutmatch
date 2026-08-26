@@ -81,6 +81,13 @@ td b{color:var(--green-d)}
 .vote h4{font-size:15px;margin-bottom:4px}
 .vote p{font-size:12px;color:var(--sub);margin-bottom:12px}
 .vbtn{display:inline-block;background:var(--green);color:#fff;border:none;font-size:14px;font-weight:700;padding:11px 22px;border-radius:12px;cursor:pointer}
+.vbtn:disabled{opacity:.6;cursor:default}
+.buys .vote-in{flex:1;text-align:center;font-size:13px;font-weight:700;padding:9px;border-radius:10px;background:var(--green);color:#fff;border:none;cursor:pointer}
+.buys .vote-in:disabled{background:#cfe6d4;color:#5c8a66;cursor:default}
+.vote-form{display:flex;flex-direction:column;gap:10px;align-items:center}
+.vote-form label{font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:6px;width:100%;max-width:340px;text-align:left}
+.vote-form select{font-size:14px;padding:9px 10px;border:1px solid #d9d9d9;border-radius:10px;background:#fff}
+.vote-thanks{font-size:13px;color:#1a7f37;background:#eaf7ee;border:1px solid #b7e0c2;border-radius:12px;padding:12px;line-height:1.6}
 /* faq */
 .faq{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 14px}
 .faq details{border-bottom:1px solid var(--line);padding:12px 0}
