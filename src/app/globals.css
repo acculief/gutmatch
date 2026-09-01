@@ -22,8 +22,13 @@ h1{font-size:21px;line-height:1.45;margin:14px 0 6px;font-weight:800}
 .lead-h1{font-size:26px;font-weight:800;line-height:1.4}
 .lead-p{font-size:14px;color:#333;margin-top:10px}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
-.chip{font-size:13px;background:#fff;border:1px solid var(--line);color:var(--sub);padding:7px 14px;border-radius:20px}
+.chip{font-size:13px;background:#fff;border:1px solid var(--line);color:var(--sub);padding:7px 14px;border-radius:20px;cursor:pointer;font-family:inherit;line-height:1.4}
+.chip:hover{border-color:var(--green);color:var(--green)}
 .chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.rk-search{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rk-search input{flex:1;min-width:0;font-size:15px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;font-family:inherit}
+.rk-search input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.12)}
+.rk-count{font-size:12px;color:var(--sub);white-space:nowrap}
 .rk-grid{display:flex;flex-direction:column;gap:10px}
 .rk-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
 .rk-thumb{width:56px;height:78px;flex:0 0 56px;background:#fff;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;padding:3px}
