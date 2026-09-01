@@ -1,23 +1,37 @@
 "use client";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { racketAlias } from "@/lib/racketAlias";
 
 type Racket = { slug: string; brand: string; model: string; badge: string; image: string };
 
 const BRANDS = ["すべて", "Babolat", "Wilson", "YONEX", "HEAD", "Dunlop", "Prince", "Tecnifibre"];
+const norm = (s: string) => s.toLowerCase().replace(/\s+/g, "");
 
 export default function RacketBrowser({ rackets }: { rackets: Racket[] }) {
   const [brand, setBrand] = useState("すべて");
   const [q, setQ] = useState("");
 
+  // 各ラケットの検索用テキスト（英名＋カタカナ別名＋バッジ）を事前計算。
+  const indexed = useMemo(
+    () =>
+      rackets.map((r) => ({
+        r,
+        hay: norm(`${r.model} ${r.brand} ${r.badge} ${racketAlias(r.brand, r.model)}`),
+      })),
+    [rackets],
+  );
+
   const filtered = useMemo(() => {
-    const qq = q.trim().toLowerCase();
-    return rackets.filter((r) => {
-      const okBrand = brand === "すべて" || r.brand.toLowerCase() === brand.toLowerCase();
-      const okQ = !qq || `${r.model} ${r.brand} ${r.badge}`.toLowerCase().includes(qq);
-      return okBrand && okQ;
-    });
-  }, [rackets, brand, q]);
+    const qq = norm(q);
+    return indexed
+      .filter(({ r, hay }) => {
+        const okBrand = brand === "すべて" || r.brand.toLowerCase() === brand.toLowerCase();
+        const okQ = !qq || hay.includes(qq);
+        return okBrand && okQ;
+      })
+      .map((x) => x.r);
+  }, [indexed, brand, q]);
 
   return (
     <>
@@ -41,7 +55,7 @@ export default function RacketBrowser({ rackets }: { rackets: Racket[] }) {
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="ラケット名で検索（例: Pure Drive, EZONE, Blade）"
+          placeholder="ラケット名で検索（例: ピュアドライブ / EZONE / ブレード）"
           aria-label="ラケット名で検索"
         />
         <span className="rk-count">{filtered.length}本</span>
