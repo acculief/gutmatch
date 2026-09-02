@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { racketList } from "@/data/rackets";
 import RacketBrowser from "@/components/RacketBrowser";
 
@@ -12,6 +13,7 @@ export default function Home() {
         <section className="lead">
           <h1 className="lead-h1">その1本に、<br />合うガットは？</h1>
           <p className="lead-p">ラケットを選ぶと、<b>おすすめのガット・テンション・みんなの人気セットアップ</b>がすぐわかる。もう知恵袋を探さなくていい。</p>
+          <Link href="/compare/" className="cmp-cta">⚖️ ラケットをくらべる（スペック・おすすめガット比較）→</Link>
         </section>
 
         <RacketBrowser rackets={racketList} />

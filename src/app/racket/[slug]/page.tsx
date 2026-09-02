@@ -37,6 +37,7 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
             <div className="model">{r.model}</div>
             <div className="price">{r.price}</div>
             <span className="badge">{r.badge}</span>
+            <Link href={`/compare/?a=${r.slug}`} className="cmp-cta">⚖️ 他のラケットと比較する →</Link>
           </div>
         </div>
 
