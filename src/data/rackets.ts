@@ -772,6 +772,16 @@ const MORE: Def[] = [
   { slug: "beast100", brand: "PRINCE", model: "Beast 100", type: "power", price: "実勢 ¥24,000前後", badge: "パワースピン", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "やや硬め" },
   { slug: "tfight300", brand: "TECNIFIBRE", model: "T-Fight 300", type: "control", price: "実勢 ¥28,000前後", badge: "コントロール", face: "98 inch²", weight: "300 g", pattern: "16×19", ra: "中" },
   { slug: "tf40", brand: "TECNIFIBRE", model: "TF40", type: "control", price: "実勢 ¥30,000前後", badge: "18×20 コントロール", face: "98 inch²", weight: "315 g", pattern: "18×20", ra: "中" },
+  { slug: "pureaero-vs", brand: "BABOLAT", model: "Pure Aero VS", type: "spin", price: "実勢 ¥28,000前後", badge: "上級スピン・コントロール", face: "98 inch²", weight: "320 g", pattern: "16×20", ra: "中" },
+  { slug: "puredrive-107", brand: "BABOLAT", model: "Pure Drive 107", type: "power", price: "実勢 ¥24,000前後", badge: "デカ面パワー", face: "107 inch²", weight: "285 g", pattern: "16×19", ra: "硬め" },
+  { slug: "ezone105", brand: "YONEX", model: "EZONE 105", type: "comfort", price: "実勢 ¥26,000前後", badge: "デカ面・快適パワー", face: "105 inch²", weight: "275 g", pattern: "16×19", ra: "中" },
+  { slug: "astrel105", brand: "YONEX", model: "ASTREL 105", type: "comfort", price: "実勢 ¥26,000前後", badge: "超軽量・超快適", face: "105 inch²", weight: "265 g", pattern: "16×19", ra: "柔らかい" },
+  { slug: "ultra100l", brand: "WILSON", model: "Ultra 100L", type: "power", price: "実勢 ¥25,000前後", badge: "軽量パワー", face: "100 inch²", weight: "280 g", pattern: "16×19", ra: "中" },
+  { slug: "clash100l", brand: "WILSON", model: "Clash 100L", type: "comfort", price: "実勢 ¥28,000前後", badge: "軽量・超快適", face: "100 inch²", weight: "280 g", pattern: "16×19", ra: "非常に柔らかい" },
+  { slug: "cx200ls", brand: "DUNLOP", model: "CX 200 LS", type: "control", price: "実勢 ¥26,000前後", badge: "軽量コントロール", face: "98 inch²", weight: "290 g", pattern: "16×19", ra: "中" },
+  { slug: "sx300ls", brand: "DUNLOP", model: "SX 300 LS", type: "spin", price: "実勢 ¥25,000前後", badge: "軽量スピン", face: "100 inch²", weight: "285 g", pattern: "16×19", ra: "やや硬め" },
+  { slug: "tfight305", brand: "TECNIFIBRE", model: "T-Fight 305", type: "control", price: "実勢 ¥29,000前後", badge: "18×20 コントロール", face: "98 inch²", weight: "305 g", pattern: "18×20", ra: "中" },
+  { slug: "tfx1-300", brand: "TECNIFIBRE", model: "TF-X1 300", type: "power", price: "実勢 ¥26,000前後", badge: "快適パワー", face: "100 inch²", weight: "300 g", pattern: "16×19", ra: "中" },
 ];
 
 for (const d of MORE) { rackets[d.slug] = mk(d); }

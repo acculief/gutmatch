@@ -13,16 +13,19 @@ const BRAND_JA: Record<string, string> = {
 };
 
 // 長いフレーズを先に置換する（"Pure Drive" を "Pro" より先に、など）。
+// 各モデルは「単一のカタカナ読み」に統一する。複数読みを空白区切りで並べると、
+// 後続の数字（例: EZONE 98）と隣接しなくなり「イーゾーン98」で引けなくなるため。
 const MODEL_JA: Array<[RegExp, string]> = [
   [/Pure Drive/gi, "ピュアドライブ"],
   [/Pure Aero/gi, "ピュアアエロ"],
   [/Pure Strike/gi, "ピュアストライク"],
   [/Boost Drive/gi, "ブーストドライブ"],
   [/Pro Staff/gi, "プロスタッフ"],
-  [/T-?Fight/gi, "ティーファイト Tファイト"],
-  [/TF40/gi, "ティーエフ40 TF40"],
-  [/EZONE/gi, "イーゾーン Eゾーン"],
-  [/VCORE/gi, "ブイコア Vコア"],
+  [/T-?Fight/gi, "ティーファイト"],
+  [/TF-?X1/gi, "ティーエフエックスワン"],
+  [/TF40/gi, "ティーエフ40"],
+  [/EZONE/gi, "イーゾーン"],
+  [/VCORE/gi, "ブイコア"],
   [/PERCEPT/gi, "パーセプト"],
   [/ASTREL/gi, "アストレル"],
   [/Blade/gi, "ブレード"],
