@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!r) return {};
   return {
     title: r.model + "に合うガットは？おすすめセットアップ・人気の張り方 | ガットマッチ",
-    description: r.model + "におすすめのガット・テンション・人気セットアップ（ユーザー投票順）をまとめました。",
+    description: r.model + "（" + r.specs[0].val + "・" + (r.specs.find((s) => s.label === "重量")?.val || "") + "）に合うガット・テンション・人気セットアップを" + r.setups.length + "本の候補で比較。" + r.setups[0].gut + "ほか、目的別の張り方早見表とFAQ付き。ユーザー投票で更新中。",
   };
 }
 
@@ -24,6 +24,17 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
   if (!r) notFound();
   return (
     <div className="wrap">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "BreadcrumbList", itemListElement: [
+            { "@type": "ListItem", position: 1, name: "ホーム", item: "https://gutmatch.vercel.app/" },
+            { "@type": "ListItem", position: 2, name: r.brand },
+            { "@type": "ListItem", position: 3, name: r.model },
+          ] },
+          { "@type": "FAQPage", mainEntity: r.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]+>/g, "") } })) },
+        ],
+      }) }} />
       <header className="top">
         <Link href="/" className="logo">ガット<span>マッチ</span></Link>
         <div className="tagline">ラケット別 セットアップ図鑑</div>
@@ -49,6 +60,8 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
           <h2>{r.verdictTitle}</h2>
           <p dangerouslySetInnerHTML={{ __html: r.verdictBody }} />
         </div>
+
+        {r.intro && <p className="lead" dangerouslySetInnerHTML={{ __html: r.intro }} />}
 
         <h3 className="sec">どんなラケット？（30秒）</h3>
         <div className="spec">

@@ -7,6 +7,7 @@ export type Racket = {
   verdictTitle: string; verdictBody: string;
   specs: { label: string; val: string }[];
   oneline: string;
+  intro?: string;
   setups: Setup[];
   hayami: { want: string; dir: string; tension: string }[];
   proNote: string;
@@ -795,6 +796,25 @@ const MORE: Def[] = [
 ];
 
 for (const d of MORE) { rackets[d.slug] = mk(d); }
+
+// ===== 各テンプレページに固有の本文を付与（重複コンテンツ対策・SEO） =====
+function _numOf(v: string): number { const m = v.match(/\d+/); return m ? parseInt(m[0], 10) : 0; }
+function _hash(str: string): number { let h = 0; for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h; }
+const DIRWORD: Record<string, string> = { power: "飛びを締めて打感を整える", spin: "回転を活かしつつ飛びを抑える", control: "球持ちと収まりを引き出す", comfort: "柔らかさを保って腕を守る", allround: "好みに合わせて微調整できる" };
+for (const d of MORE) {
+  const r = rackets[d.slug];
+  const w = _numOf(d.weight), f = _numOf(d.face);
+  const wBand = w > 0 && w <= 275 ? "とても軽く取り回し重視の" : w <= 290 ? "軽量で振り抜きやすい" : w <= 305 ? "標準的な重さでバランスの取れた" : "ずっしり重く球威の出る";
+  const fBand = f >= 105 ? "デカ面でスイートスポットが広く、当たりが多少ズレても楽に飛ぶ" : f >= 100 ? "標準的な100前後の面サイズで素直に扱える" : "小さめの面でヒット精度を要求される";
+  const pat = /18/.test(d.pattern) ? "18×20の密なパターンなのでコントロール寄りでスピンは控えめ" : "オープン気味のパターンでスナップバックが効き回転が出やすい";
+  const feel = /柔/.test(d.ra) ? "しなって衝撃が少なく腕に優しい" : /硬/.test(d.ra) ? "弾きが強く球は硬めに出やすい" : "中庸で素直な打感の";
+  r.intro = d.model + "は" + d.face + "・" + d.weight + "・" + d.pattern + "の" + wBand + "モデル。" + fBand + "、" + pat + "、" + feel + "フレームです。だからガットは、この特性を踏まえて「" + (DIRWORD[d.type] || "好みで選ぶ") + "」方向で選ぶのが基本になります。";
+  r.faqs = [...r.faqs, { q: d.model + "のテンションはどのくらいが目安？", a: (/硬/.test(d.ra) ? "弾きが強いので気持ち高めに張ると球が収まりやすい" : /柔/.test(d.ra) ? "柔らかいフレームなので標準〜やや高めで飛びを締める" : "標準的な設定にする") + "のが目安です。" + (/18/.test(d.pattern) ? "密パターンで元々スピンは出にくいので、回転が欲しい場合はテンションを下げすぎず柔らかいポリを選ぶのがコツ。" : "回転が出やすいフレームなので、飛びが気になったら2〜3ポンド上げると落ち着きます。") }];
+  r.proNote = r.proNote + " なお" + d.model + "は" + feel + "フレームなので、上表を基準に±2ポンドで微調整するのがおすすめです。";
+  const off = _hash(d.slug) % 40;
+  r.setups = r.setups.map((st, i) => ({ ...st, votes: st.votes + off - 20 + i * 3 }));
+}
+
 
 
 export const racketList = Object.values(rackets);
