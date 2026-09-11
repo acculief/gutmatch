@@ -126,3 +126,9 @@ td b{color:var(--green-d)}
 .cmp-back{margin-top:20px;font-size:13px}
 .cmp-back a{color:var(--sub);text-decoration:none}
 .cmp-cta{display:inline-block;font-size:13px;font-weight:700;color:var(--green);text-decoration:none}
+
+.related{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0}
+.related-item{display:flex;flex-direction:column;padding:10px 12px;border:1px solid #e2e8f0;border-radius:10px;text-decoration:none;background:#fff;transition:border-color .15s}
+.related-item:hover{border-color:#3b82f6}
+.related-brand{font-size:11px;color:#64748b;letter-spacing:.02em}
+.related-model{font-size:14px;font-weight:700;color:#1e293b;line-height:1.3}

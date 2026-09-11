@@ -105,6 +105,26 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
         </div>
 
         <div className="note">📌 このページのセットアップは初期データ＋ユーザー投票で作成しています。あなたの1票がランキングの精度を上げます。</div>
+
+        {(() => {
+          const all = Object.values(rackets);
+          const same = all.filter((x) => x.brand === r.brand && x.slug !== r.slug);
+          const others = all.filter((x) => x.brand !== r.brand && x.slug !== r.slug);
+          const related = [...same, ...others].slice(0, 6);
+          return (
+            <>
+              <h3 className="sec">関連ラケット</h3>
+              <div className="related">
+                {related.map((x) => (
+                  <Link key={x.slug} href={`/racket/${x.slug}/`} className="related-item">
+                    <span className="related-brand">{x.brand}</span>
+                    <span className="related-model">{x.model}に合うガット</span>
+                  </Link>
+                ))}
+              </div>
+            </>
+          );
+        })()}
       </main>
     </div>
   );
