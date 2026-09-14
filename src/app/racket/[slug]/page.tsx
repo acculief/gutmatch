@@ -1,8 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { rackets } from "@/data/rackets";
+import { rackets, type Racket } from "@/data/rackets";
 import SetupList from "@/components/SetupList";
 import VoteForm from "@/components/VoteForm";
+
+function tensionGuide(r: Racket) {
+  const nums = (r.setups[0]?.tension || "").match(/\d+/g)?.map(Number) || [];
+  const base = nums[0] || 50;
+  const lo = nums[1] || base - 2;
+  const hi = nums[2] || base + 2;
+  const easy = Math.max(40, base - 3);
+  const firm = base + 3;
+  return { base, lo, hi, easy, firm };
+}
 
 export function generateStaticParams() {
   return Object.keys(rackets).map((slug) => ({ slug }));
@@ -22,6 +32,11 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
   const { slug } = await params;
   const r = rackets[slug];
   if (!r) notFound();
+  const tg = tensionGuide(r);
+  const faqs = [...r.faqs, {
+    q: `${r.model}は何ポンドで張ればいい？`,
+    a: `迷ったら<b>${tg.base}ポンド前後（${tg.lo}〜${tg.hi}）</b>が基準です。柔らかい打感や楽に飛ばしたい人は<b>${tg.easy}前後</b>、飛び・スピンを締めて<b>コントロール</b>したい上級者は<b>${tg.firm}前後</b>まで上げると合わせやすい。ガット素材（ポリ/マルチ）でも最適値は変わるので、上の推奨テンション目安も参照してください。`,
+  }];
   return (
     <div className="wrap">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -32,7 +47,7 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
             { "@type": "ListItem", position: 2, name: r.brand },
             { "@type": "ListItem", position: 3, name: r.model },
           ] },
-          { "@type": "FAQPage", mainEntity: r.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]+>/g, "") } })) },
+          { "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]+>/g, "") } })) },
         ],
       }) }} />
       <header className="top">
@@ -84,6 +99,17 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
           </tbody>
         </table>
 
+        <h3 className="sec">何ポンドで張る？{r.model}の推奨テンション目安</h3>
+        <table>
+          <tbody>
+            <tr><th>狙い</th><th>目安テンション</th><th>こんな人に</th></tr>
+            <tr><td><b>まず基準</b></td><td>{tg.base} lbs（{tg.lo}〜{tg.hi}）</td><td>{r.model}を標準的に扱いたい・迷ったらここから</td></tr>
+            <tr><td><b>楽に飛ばす / 腕に優しく</b></td><td>{tg.easy} lbs前後</td><td>初級〜中級・テニス肘が不安・もっと飛ばしたい</td></tr>
+            <tr><td><b>締める / コントロール</b></td><td>{tg.firm} lbs前後</td><td>上級・飛びすぎる・面のブレを抑えたい</td></tr>
+          </tbody>
+        </table>
+        <p className="tension-note">ガット別の細かいテンションは上の「人気セットアップ」を参照。ポリは基準〜やや低め、マルチ／ナイロンは飛びやすいのでやや高めが目安です。{r.model}はまず<b>{tg.base}ポンド</b>で張って、飛びすぎるなら+2、楽に飛ばしたいなら-2で微調整を。</p>
+
         <h3 className="sec">プロ／上級者の参考</h3>
         <div className="pro"><span dangerouslySetInnerHTML={{ __html: r.proNote }} /><br /><span className="dim">※初期データ。出典精査＆ユーザー投票で継続更新予定。</span></div>
 
@@ -96,7 +122,7 @@ export default async function RacketPage({ params }: { params: Promise<{ slug: s
 
         <h3 className="sec">よくある質問</h3>
         <div className="faq">
-          {r.faqs.map((f, i) => (
+          {faqs.map((f, i) => (
             <details key={i} open={i === 0}>
               <summary>{f.q}</summary>
               <p dangerouslySetInnerHTML={{ __html: f.a }} />
