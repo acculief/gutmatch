@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { racketList } from "@/data/rackets";
 import RacketCompare, { type CompareItem } from "@/components/RacketCompare";
+import { comparePairs, pairSlug } from "@/data/comparePairs";
+import { rackets } from "@/data/rackets";
 
 export const metadata: Metadata = {
   title: "ラケット比較 | スペック・おすすめガットを並べて比較 - ガットマッチ",
@@ -46,6 +48,20 @@ export default function ComparePage() {
         </section>
 
         <RacketCompare items={items} />
+
+        <h3 className="sec">人気の対決比較</h3>
+        <div className="related">
+          {comparePairs.map((p) => {
+            const A = rackets[p.a], B = rackets[p.b];
+            if (!A || !B) return null;
+            return (
+              <Link key={pairSlug(p)} href={`/compare/${pairSlug(p)}/`} className="related-item">
+                <span className="related-brand">{A.brand} vs {B.brand}</span>
+                <span className="related-model">{A.model} と {B.model}、どっち？</span>
+              </Link>
+            );
+          })}
+        </div>
 
         <p className="cmp-back">
           <Link href="/">← ラケット一覧にもどる</Link>
